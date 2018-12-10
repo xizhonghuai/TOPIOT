@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.protocol.safemon.sys.SafeMonMapper">
+
+	<select id="getLED" parameterType="com.protocol.safemon.sys.FindPar"
+		resultType="com.protocol.safemon.sys.LED">
+		<!-- select * from LED where STCD=#{stcd} -->
+		select
+		*
+		from
+		LED where 1=1
+		<if test="bianhao != null"> and STCD =#{bianhao}</if>
+		<if test="stcd != null"> and LED_STCD =#{stcd}</if>
+	</select>
+
+
+	<select id="getAllCall" resultType="com.protocol.safemon.sys.Call">
+
+		select * from Call
+
+	</select>
+
+
+
+	<select id="getSystemPar" resultType="com.protocol.safemon.sys.SystemPar">
+		select * from SystemPar
+	</select>
+
+	<update id="UpdateSystemPar" parameterType="com.protocol.safemon.sys.SystemPar">
+		update
+		SystemPar set
+		<if test="LEDTh_on!=0"> LEDTh_on=#{LEDTh_on},</if>
+		<if test="LEDTh_off!=0"> LEDTh_off=#{LEDTh_off},</if>
+		othervalue = 1
+		where othervalue=1
+	</update>
+
+
+	<select id="getSiteinfo" parameterType="com.protocol.safemon.sys.FindPar"
+		resultType="com.protocol.safemon.sys.Siteinfo">
+
+		select
+		<if test="Count!=0"> top ${Count}   </if>
+		* FROM
+		(
+		SELECT
+		ROW_NUMBER() over(order by id) as
+		rows , *
+		FROM
+		(
+		select
+		*
+		from
+		SiteTable
+		) as site where 1=1
+
+
+		<if test="fenqu!=0"> and site.fenqu=#{fenqu}</if>
+		<if test="bianhao != null"> and site.bianhao=#{bianhao}</if>
+		<if test="Name != null"> and site.Site_Name LIKE '%'+#{Name}+'%'</if>
+
+		) as A where rows > (#{Count}*( #{page} -1))
+
+
+	</select>
+
+
+
+
+
+
+
+</mapper>

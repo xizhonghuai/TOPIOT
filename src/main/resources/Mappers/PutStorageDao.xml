@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.protocol.database.PutStorageDao">
+
+
+	<update id="updateCqswRealtimeData" parameterType="com.protocol.safemon.CqswDataModel">
+
+		<if test="id  == 1">
+			update Realtime set
+			R_SW=#{waterlevel},
+			R_time=#{tm},
+			R_ZT='正常' 
+			where
+			R_bianhao=#{regId}
+		</if>
+		<if test="id == 2">
+			update
+			LED_Realtime set Screen_state=#{ledStatus1},
+			Card_state='正常'  ,Light_state=#{ledStatus2}
+			,TM=#{tm} where
+			LED_STCD=#{regId}
+		</if>
+
+	</update>
+
+
+
+</mapper>

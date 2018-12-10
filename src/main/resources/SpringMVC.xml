@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd"
+	default-lazy-init="false">
+
+	<!-- scan the package and the sub package -->
+	<context:component-scan base-package="com" />
+	<!-- 提供spring所以注解方式 -->
+	<mvc:annotation-driven />
+	<!-- 静态资源访问 -->
+	<mvc:resources mapping="assets/**" location="/WEB-INF/jsp/assets/" />
+	<mvc:resources mapping="common/**" location="/WEB-INF/jsp/common/" />
+	<mvc:resources mapping="fileinput/**" location="/WEB-INF/jsp/fileinput/" />
+
+
+	<!-- don't handle the static resource -->
+	<mvc:default-servlet-handler />
+	<bean id="springBeanUtils" class="com.application.SpringBeanUtils" />
+
+	<!-- ******************************服务配置区********************************** -->
+
+
+
+
+
+   <!-- 参数初始化 -->
+   <!-- 	
+	<bean id="cqswInit" class="com.protocol.safemon.sys.ParamsInitBean"></bean>
+<bean id="cqsw" class="com.transportlayer.Tcp">
+		<property name="serviceId" value="cqsw"></property>
+		<property name="Handler" value="com.protocol.safemon.CqswHandler"></property>
+		<property name="port">
+			<list>
+				<value>10378</value>
+			</list>
+		</property>
+		<property name="idle" value="300"></property>
+		<property name="decodecharset" value="ISO-8859-1"></property>
+		<property name="encodecharset" value="ISO-8859-1"></property>
+		<property name="pushUrl" value="http://127.0.0.1:8081/topiot/push"></property>
+		<property name="pushflag">
+			<value>false</value>
+		</property>
+		<property name="debugflag">
+			<value>true</value>
+		</property>
+		<property name="toServiceId" value="cqsw"></property>
+	</bean>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- ******************************end********************************** -->
+
+
+
+<!-- 	<bean id="debug" class="com.debug.DebugService">
+		<property name="port">
+			<list>
+				<value>10400</value>
+			</list>
+		</property>
+	</bean> -->
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+			<bean id="fastJsonHttpMessageConverter"
+				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- configure the InternalResourceViewResolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		id="internalResourceViewResolver">
+
+		<!-- 前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<!-- 后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="maxUploadSize" value="10485760000"></property>
+		<property name="maxInMemorySize" value="40960"></property>
+	</bean>
+
+</beans>

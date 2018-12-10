@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.protocol.database.DataApiDao">
+
+	<select id="getTestData" parameterType="com.protocol.database.ReqDataParams"
+		resultType="com.protocol.test.TestDataModel">
+		select * from test where 1=1
+		<if test="regId != null"> and regId=#{regId}</if>
+	</select>
+	
+	
+		<select id="getWxyData" parameterType="com.protocol.database.ReqDataParams"
+		resultType="com.protocol.wxy.WxyDataModel">
+		select * from RealtimeTable where 1=1
+		<if test="regId != null"> and shebeibianhao=#{regId}</if>
+	</select>
+
+</mapper>
