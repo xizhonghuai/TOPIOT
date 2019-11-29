@@ -1,7 +1,1 @@
-<<<<<<< HEAD
-update
-=======
-test
-dev
-ssdd
->>>>>>> dev
+qqsssssssq
